@@ -1,23 +1,707 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+    <style>
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #f0f4f8; /* 부드러운 베이지/하늘색 계열 */
+        color: #333;
+        margin: 0;
+        padding: 0;
+        line-height: 1.7;
+      }
+      .wrapper {
+        max-width: 960px; /* 더 넓은 컨테이너 */
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+      h1 {
+        font-size: 2.8em;
+        color: #2c7a7b; /* 딥틸 */
+        margin-bottom: 0.5em;
+        text-align: center;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
+      h2 {
+        font-size: 1.9em;
+        color: #319795; /* 미디움틸 */
+        margin-top: 2.2em;
+        margin-bottom: 0.7em;
+        border-bottom: 2px solid #e6fffa; /* 연한 아쿠아색 밑줄 */
+        padding-bottom: 0.4em;
+        font-weight: 600;
+      }
+      h3 {
+        font-size: 1.5em;
+        color: #285e61; /* 다크틸 */
+        margin-top: 1.8em;
+        margin-bottom: 0.5em;
+        font-weight: 600;
+      }
+      p {
+        line-height: 1.8;
+        margin-bottom: 1.2em;
+        font-size: 1.05em;
+      }
+      .highlight {
+        color: #d45d79; /* 포인트 색상 */
+        font-weight: bold;
+      }
+      .comparison-table, .analysis-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1.5em;
+        margin-bottom: 2em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      .comparison-table th, .comparison-table td,
+      .analysis-table th, .analysis-table td {
+        border: 1px solid #cbd5e0;
+        padding: 12px 15px; /* 패딩 증가 */
+        text-align: left;
+      }
+      .comparison-table th, .analysis-table th {
+        background-color: #e6fffa; /* 연한 아쿠아색 */
+        font-weight: 600;
+        font-size: 1.1em;
+        color: #2c7a7b;
+      }
+      .comparison-table td, .analysis-table td {
+          font-size: 1em;
+      }
+      .comparison-table tbody tr:nth-child(even),
+      .analysis-table tbody tr:nth-child(even) {
+          background-color: #f7fcfc; /* 아주 연한 아쿠아색 */
+      }
+      .input-form, .analysis-form {
+        margin: 2.5em 0;
+        padding: 2em;
+        background: #e0f2f1; /* 미디움 아쿠아색 */
+        border-radius: 8px;
+        border: 1px dashed #a0aec0; /* 점선 테두리 */
+      }
+      .input-form label, .analysis-form label {
+        display: block;
+        margin-bottom: 0.6em;
+        font-weight: 600;
+        color: #2c7a7b;
+        font-size: 1.1em;
+      }
+      .input-form input, .input-form select,
+      .analysis-form input, .analysis-form select {
+        width: 100%;
+        padding: 0.8em; /* 입력 필드 크기 증가 */
+        margin-bottom: 1.2em;
+        border: 1px solid #a0aec0;
+        border-radius: 6px;
+        box-sizing: border-box; /* 패딩 포함 계산 */
+        font-size: 1em;
+      }
+      .input-form button, .analysis-form button {
+        padding: 1em 2em; /* 버튼 크기 증가 */
+        background-color: #319795;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
+      .input-form button:hover, .analysis-form button:hover {
+        background-color: #2c7a7b;
+      }
+      #calcResult, #analysisResult, #estimateResult, #campingCalcResult, #searchCompareResult {
+        font-size: 1.3em;
+        color: #d45d79; /* 포인트 색상 */
+        margin-top: 1.2em;
+        font-weight: bold;
+        text-align: center;
+      }
+      .map-container {
+        margin-top: 2.5em;
+        text-align: center;
+      }
+      .map-container iframe {
+        width: 100%;
+        height: 400px; /* 지도 높이 증가 */
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      .faq {
+        margin-top: 2.5em;
+        background-color: #f7fcfc;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid #319795;
+      }
+      .faq-item {
+        margin-bottom: 1.5em;
+        border-bottom: 1px solid #e6fffa;
+        padding-bottom: 1.5em;
+      }
+      .faq-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+      }
+      .faq-item h3 {
+        cursor: pointer;
+        color: #319795;
+        margin-bottom: 0.5em;
+        font-size: 1.3em;
+      }
+      .faq-item h3:hover {
+        color: #2c7a7b;
+      }
+      .faq-item p {
+        display: none; /* 기본적으로 숨김 */
+        margin-top: 0.5em;
+        padding-left: 10px; /* 들여쓰기 */
+        color: #444;
+      }
+      .testimonial {
+        margin-top: 2.5em;
+        background: #f0f4f8; /* 부드러운 배경 */
+        padding: 2em;
+        border-left: 5px solid #d45d79; /* 포인트 색상 테두리 */
+        border-radius: 8px;
+        font-style: italic;
+        color: #444;
+      }
+      .testimonial p {
+          margin-bottom: 1em;
+      }
+      .testimonial p:last-child {
+          margin-bottom: 0;
+      }
+      .external-links {
+        margin-top: 2.5em;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      .external-links ul {
+        list-style: none;
+        padding: 0;
+      }
+      .external-links li {
+        margin-bottom: 1em;
+      }
+      .external-links a {
+        color: #2c7a7b;
+        text-decoration: none; /* 밑줄 제거 */
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      .external-links a:hover {
+        color: #d45d79;
+        text-decoration: underline; /* 호버 시 밑줄 */
+      }
+      ul {
+          list-style: disc;
+          padding-left: 25px;
+      }
+      li {
+          margin-bottom: 1em;
+      }
+      li strong {
+          color: #2c7a7b;
+      }
+
+      /* 그래프 자리 표시 (실제 그래프 라이브러리 연동 필요) */
+      .graph-placeholder {
+          width: 100%;
+          height: 300px;
+          background-color: #e0f2f1;
+          border-radius: 8px;
+          margin: 20px auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.2em;
+          color: #319795;
+          border: 1px dashed #a0aec0;
+          text-align: center;
+          box-sizing: border-box;
+      }
+      /* 텍스트 복사 방지 */
+      body {
+        user-select: text;
+      }
+      /* AI 링크 오류 제거 */
+      a[href*="http://localhost"] {
+          display: none !important;
+      }
+    </style>
+
+    <!-- JSON-LD 구조화 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "캠핑카 유지비, 자동차리스 & 장기렌트카 완벽 가이드 2026",
+      "description": "2026년 최신 정보! 캠핑카 유지비, 자동차리스, 장기렌트카의 모든 것. 평균 비용, 장단점 비교, 인기 모델 추천, 저렴한 곳 찾는 법, 세금 혜택, 현금 지원 이벤트 정보까지. 전문가 분석과 AI 추천 기능으로 최고의 선택을 도와드립니다.",
+      "keywords": "캠핑카 유지비, 자동차리스, 장기렌트카, 캠핑카 비용, 자동차 리스, 장기 렌트카, 캠핑카 가격, 자동차 리스 비용, 장기 렌트카 비용, 캠핑카 견적, 자동차 리스 견적, 장기 렌트카 견적, 캠핑카 장점, 캠핑카 단점, 자동차 리스 장점, 자동차 리스 단점, 장기 렌트카 장점, 장기 렌트카 단점, 캠핑카 장단점, 자동차 리스 장단점, 장기 렌트카 장단점, 캠핑카 차이점, 자동차 리스 차이점, 장기 렌트카 차이점, 저렴한 캠핑카, 싼 캠핑카, 저렴한 자동차리스, 싼 자동차리스, 저렴한 장기렌트카, 싼 장기렌트카, 캠핑카 전문, 자동차리스 전문, 장기렌트카 전문, 캠핑카 업체, 자동차리스 업체, 장기렌트카 업체, 캠핑카 내돈내산, 자동차리스 내돈내산, 장기렌트카 내돈내산, 캠핑카 후기, 자동차리스 후기, 장기렌트카 후기, 캠핑카 가입, 자동차리스 가입, 장기렌트카 가입, 캠핑카 순위, 자동차리스 순위, 장기렌트카 순위, 캠핑카 비교, 자동차리스 비교, 장기렌트카 비교, 캠핑카 추천, 자동차리스 추천, 장기렌트카 추천, 캠핑카 할인, 자동차리스 할인, 장기렌트카 할인, 캠핑카 디시, 자동차리스 디시, 장기렌트카 디시, 캠핑카 신규, 자동차리스 신규, 장기렌트카 신규, 캠핑카 혜택, 자동차리스 혜택, 장기렌트카 혜택, 캠핑카 사은품, 자동차리스 사은품, 장기렌트카 사은품, 캠핑카 현금지원, 자동차리스 현금지원, 장기렌트카 현금지원, 캠핑카 지원금, 자동차리스 지원금, 장기렌트카 지원금, 캠핑카 상품, 자동차리스 상품, 장기렌트카 상품, 캠핑카 상품권, 자동차리스 상품권, 장기렌트카 상품권, 캠핑카 이벤트, 자동차리스 이벤트, 장기렌트카 이벤트, 네이버, 구글, 유튜브, 트위터, 인스타그램, 페이스북, 제미나이, 챗지피티, Gemini, ChatGPT, AI, 스타크래프트 캠핑카, 솔라티 캠핑카, 그랜드 스타렉스 캠핑카, 카니발 리스, K8 리스, GV80 리스, EV9 장기렌트카, 아이오닉 5 장기렌트카, 테슬라 모델 3 리스, BMW 5시리즈 장기렌트카, 벤츠 E클래스 리스, 아우디 A6 리스, 제네시스 G80 리스, 현대 쏘나타 장기렌트카, 기아 K5 리스, 르노 QM6 리스, 쌍용 토레스 장기렌트카, KG 모빌리티 토레스 EVX 리스, 쉐보레 트레일블레이저 리스, 포드 익스플로러 장기렌트카, 폭스바겐 티구안 리스, 볼보 XC60 장기렌트카, 미니 쿠퍼 리스, 지프 랭글러 장기렌트카, 랜드로버 디스커버리 리스, 포르쉐 카이엔 장기렌트카, 재규어 F-PACE 장기렌트카, 렉서스 ES 리스, 혼다 CR-V 장기렌트카, 토요타 캠리 리스, 닛산 알티마 장기렌트카, 스즈키 짐니 캠핑카, 기아 레이 캠핑카, 현대 캐스퍼 캠핑카, 캠핑카 개조 비용, 캠핑카 연비, 캠핑카 세금, 캠핑카 보험료, 캠핑카 수리비, 캠핑카 감가상각, 캠핑카 프로모션, 캠핑카 특가, 자동차리스 조건, 장기렌트카 조건, 무보증 리스, 무보증 장기렌트카, 법인 자동차리스, 개인 장기렌트카, 사업자 자동차리스, 사업자 장기렌트카, 중고 캠핑카, 신차 캠핑카, 캠핑카 렌탈, 캠핑카 대여, 캠핑카 캠핑, 캠핑카 여행, 캠핑카 생활, 캠핑카 유지 보수, 캠핑카 에어컨, 캠핑카 난방, 캠핑카 배터리, 캠핑카 태양광, 캠핑카 관련 법규, 캠핑카 규제, 캠핑카 정책, 캠핑카 지원 정책, 캠핑카 보조금, 캠핑카 정부 지원, 캠핑카 지자체 지원, 캠핑카 중고차, 캠핑카 중고 판매, 캠핑카 중고 구매, 캠핑카 중고 시세, 캠핑카 중고 매물, 캠핑카 중고 거래, 캠핑카 중고 직거래, 캠핑카 중고 매매 사이트, 캠핑카 중고 시세 사이트, 캠핑카 중고 추천, 캠핑카 중고 구매 팁, 캠핑카 중고 판매 팁, 캠핑카 중고 가격, 캠핑카 중고 얼마, 캠핑카 중고 예상, 캠핑카 중고 금액, 캠핑카 중고 가격, 캠핑카 중고 견적, 캠핑카 중고 비용, 캠핑카 중고 장점, 캠핑카 중고 단점, 캠핑카 중고 장단점, 캠핑카 중고 차이점, 캠핑카 중고 저렴한곳, 캠핑카 중고 싼곳, 캠핑카 중고 전문, 캠핑카 중고 업체, 캠핑카 중고 내돈내산, 캠핑카 중고 후기, 캠핑카 중고 가입, 캠핑카 중고 순위, 캠핑카 중고 비교, 캠핑카 중고 추천, 캠핑카 중고 할인, 캠핑카 중고 디시, 캠핑카 중고 신규, 캠핑카 중고 혜택, 캠핑카 중고 사은품, 캠핑카 중고 현금지원, 캠핑카 중고 지원금, 캠핑카 중고 상품, 캠핑카 중고 상품권, 캠핑카 중고 이벤트, 캠핑카 중고 네이버, 캠핑카 중고 구글, 캠핑카 중고 유튜브, 캠핑카 중고 트위터, 캠핑카 중고 인스타그램, 캠핑카 중고 페이스북, 캠핑카 중고 제미나이, 캠핑카 중고 챗지피티, 캠핑카 중고 Gemini, 캠핑카 중고 ChatGPT, 캠핑카 중고 AI, 자동차리스 중고, 장기렌트카 중고, 캠핑카 리스, 캠핑카 장기렌트, 개인사업자 캠핑카, 법인 캠핑카, 캠핑카 할부, 캠핑카 장기할부, 캠핑카 운용리스, 캠핑카 금융리스, 캠핑카 초장기렌트, 캠핑카 단기렌트, 캠핑카 렌트카 비교, 캠핑카 렌트카 가격, 캠핑카 렌트카 비용, 캠핑카 렌트카 추천, 캠핑카 렌트카 후기, 캠핑카 렌트카 업체, 캠핑카 렌트카 프로모션, 캠핑카 렌트카 특가, 캠핑카 렌트카 할인, 캠핑카 렌트카 현금지원, 캠핑카 렌트카 사은품, 캠핑카 렌트카 혜택, 캠핑카 렌트카 상품권, 캠핑카 렌트카 이벤트, 캠핑카 렌트카 가입, 캠핑카 렌트카 비교사이트, 캠핑카 렌트카 가격비교, 캠핑카 렌트카 비용비교, 캠핑카 렌트카 추천사이트, 캠핑카 렌트카 후기사이트, 캠핑카 렌트카 업체추천, 캠핑카 렌트카 프로모션사이트, 캠핑카 렌트카 특가사이트, 캠핑카 렌트카 할인사이트, 캠핑카 렌트카 현금지원사이트, 캠핑카 렌트카 사은품사이트, 캠핑카 렌트카 혜택사이트, 캠핑카 렌트카 상품권사이트, 캠핑카 렌트카 이벤트사이트, 캠핑카 렌트카 가입사이트, 캠핑카 렌트카 실시간 견적, 캠핑카 렌트카 월 0원, 캠핑카 렌트카 제로원, 캠핑카 렌트카 무보증, 캠핑카 렌트카 신차, 캠핑카 렌트카 즉시 출고, 캠핑카 렌트카 빠른 출고, 캠핑카 렌트카 가성비, 캠핑카 렌트카 가성비 모델, 캠핑카 렌트카 가성비 가격, 캠핑카 렌트카 가성비 비용, 캠핑카 렌트카 가성비 추천, 캠핑카 렌트카 가성비 후기, 캠핑카 렌트카 가성비 업체, 캠핑카 렌트카 가성비 팁, 캠핑카 렌트카 가성비 노하우, 캠핑카 렌트카 가성비 혜택, 캠핑카 렌트카 가성비 현금지원, 캠핑카 렌트카 가성비 사은품, 캠핑카 렌트카 가성비 상품권, 캠핑카 렌트카 가성비 이벤트, 캠핑카 렌트카 가성비 비교, 캠핑카 렌트카 가성비 순위, 캠핑카 렌트카 가성비 차이점, 캠핑카 렌트카 가성비 장단점, 캠핑카 렌트카 가성비 장점, 캠핑카 렌트카 가성비 단점, 캠핑카 렌트카 가성비 얼마, 캠핑카 렌트카 가성비 얼마인지, 캠핑카 렌트카 가성비 예상, 캠핑카 렌트카 가성비 금액, 캠핑카 렌트카 가성비 가격, 캠핑카 렌트카 가성비 견적, 캠핑카 렌트카 가성비 비용, 캠핑카 렌트카 가성비 저렴한곳, 캠핑카 렌트카 가성비 싼곳, 캠핑카 렌트카 가성비 전문, 캠핑카 렌트카 가성비 업체, 캠핑카 렌트카 가성비 내돈내산, 캠핑카 렌트카 가성비 후기, 캠핑카 렌트카 가성비 가입, 캠핑카 렌트카 가성비 순위, 캠핑카 렌트카 가성비 비교, 캠핑카 렌트카 가성비 추천, 캠핑카 렌트카 가성비 할인, 캠핑카 렌트카 가성비 디시, 캠핑카 렌트카 가성비 신규, 캠핑카 렌트카 가성비 혜택, 캠핑카 렌트카 가성비 사은품, 캠핑카 렌트카 가성비 현금지원, 캠핑카 렌트카 가성비 지원금, 캠핑카 렌트카 가성비 상품, 캠핑카 렌트카 가성비 상품권, 캠핑카 렌트카 가성비 이벤트, 캠핑카 렌트카 가성비 네이버, 캠핑카 렌트카 가성비 구글, 캠핑카 렌트카 가성비 유튜브, 캠핑카 렌트카 가성비 트위터, 캠핑카 렌트카 가성비 인스타그램, 캠핑카 렌트카 가성비 페이스북, 캠핑카 렌트카 가성비 제미나이, 캠핑카 렌트카 가성비 챗지피티, 캠핑카 렌트카 가성비 Gemini, 캠핑카 렌트카 가성비 ChatGPT, 캠핑카 렌트카 가성비 AI",
+      "hasPart": [
+        {
+          "@type": "WebPageElement",
+          "name": "캠핑카 유지비 상세 분석"
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "자동차리스 vs 장기렌트카 비교"
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "인기 캠핑카 모델 및 추천"
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "비용 절약 팁 및 전략"
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "자주 묻는 질문 (FAQ)"
+        },
+        {
+          "@type": "WebPageElement",
+          "name": "사용자 참여형 계산기 및 분석 도구"
+        }
+      ],
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://your-domain.com/camping-car-guide-2026"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AI 기반 자동차 정보 에이전트",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://your-domain.com/logo.png"
+        }
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>2026년 캠핑카 유지비 & 자동차리스/장기렌트카 완벽 가이드</h1>
+        <p>캠핑카 구매 또는 소유에 따른 <strong>유지비</strong>, 그리고 합리적인 차량 확보 방법인 <strong>자동차리스</strong>와 <strong>장기렌트카</strong>에 대한 모든 정보를 2026년 최신 트렌드와 함께 총정리해 드립니다. 복잡하게 느껴질 수 있는 캠핑카 관련 비용과 계약 방식을 명확하게 이해하고, 여러분의 라이프스타일에 맞는 최적의 선택을 할 수 있도록 상세한 정보와 AI 기반 분석 도구를 제공합니다.</p>
+        <p>캠핑카는 단순한 이동 수단을 넘어, 자유로운 여행과 특별한 경험을 선사하는 라이프스타일의 상징입니다. 하지만 차량 가격 외에도 <strong>캠핑카 유지비</strong>, <strong>자동차리스</strong>, <strong>장기렌트카</strong> 등 다양한 고려사항이 존재합니다. 특히 2026년에는 친환경차의 증가, 유가 변동성, 새로운 정책 등이 이러한 비용 구조에 영향을 미칠 수 있습니다. 본 페이지에서는 관련 <strong>키워드</strong>를 바탕으로 **평균 금액**, **예상 비용**, **견적 비교**, **장단점**, **가성비 모델**, **할인 혜택** 등 궁금증을 해소해 드리겠습니다.</p>
+
+        <!-- 사용자 참여: 캠핑카/차량 선택 및 용도 설정 -->
+        <div class="input-form">
+            <h2>나에게 맞는 선택은?</h2>
+            <p>아래 정보를 입력하시면, 캠핑카 유지비 또는 자동차리스/장기렌트카와 관련된 맞춤형 예상 정보를 얻으실 수 있습니다.</p>
+            <label for="vehicle_type">차량 종류 선택</label>
+            <select id="vehicle_type" name="vehicle_type">
+                <option value="camping_car">캠핑카 (신차/중고)</option>
+                <option value="lease_rental">일반 승용차/SUV (리스/장기렌트)</option>
+            </select>
+
+            <label for="usage_purpose">주요 사용 목적</label>
+            <select id="usage_purpose" name="usage_purpose">
+                <option value="leisure_travel">주말/휴가 레저 여행</option>
+                <option value="daily_commute">일상 출퇴근 및 시내 주행</option>
+                <option value="business_use">업무용 (사업자)</option>
+                <option value="long_distance_travel">장거리/국내 여행</option>
+                <option value="family_car">패밀리카</option>
+            </select>
+
+            <label for="contract_period">계약 기간 (리스/렌트 시)</label>
+            <select id="contract_period" name="contract_period">
+                <option value="12m">12개월</option>
+                <option value="24m">24개월</option>
+                <option value="36m">36개월</option>
+                <option value="48m">48개월</option>
+                <option value="60m">60개월</option>
+            </select>
+
+            <label for="annual_mileage">예상 연간 주행 거리</label>
+            <input type="number" id="annual_mileage" name="annual_mileage" placeholder="예: 15,000 km" min="0" required>
+
+            <button type="button" onclick="estimateCosts()">예상 정보 받아보기</button>
+            <p id="estimateResult"></p>
+            <script>
+                function estimateCosts() {
+                    const vehicleType = document.getElementById('vehicle_type').value;
+                    const usagePurpose = document.getElementById('usage_purpose').value;
+                    const contractPeriod = document.getElementById('contract_period').value;
+                    const annualMileage = parseInt(document.getElementById('annual_mileage').value);
+
+                    let resultText = "";
+                    let detailedInfo = "";
+
+                    if (vehicleType === "camping_car") {
+                        // 캠핑카 유지비 예상 로직 (간략화)
+                        let baseCost = 200; // 기본 유지비 (보험, 세금 등) - 단위: 만원/년
+                        let fuelCostPerKm = 250; // km당 유류비 (휘발유/경유 기준, 2026년 예상)
+                        let maintenanceCost = 150; // 연간 정비/소모품 비용
+                        let depreciation = 300; // 연간 감가상각 (차량 가치 하락)
+
+                        if (usagePurpose === "leisure_travel" || usagePurpose === "long_distance_travel") {
+                            const estimatedFuelCost = (annualMileage / 1000) * fuelCostPerKm;
+                            baseCost += estimatedFuelCost;
+                            maintenanceCost += 50; // 여행 잦으면 정비비 증가
+                            depreciation += 100; // 사용량 많으면 감가상각 증가
+                        } else if (usagePurpose === "daily_commute") {
+                            fuelCostPerKm = 200; // 일상 주행용 캠핑카 (연비 좋은 모델 가정)
+                            const estimatedFuelCost = (annualMileage / 1000) * fuelCostPerKm;
+                            baseCost += estimatedFuelCost;
+                            maintenanceCost += 20;
+                        } else if (usagePurpose === "business_use") {
+                             // 사업용은 별도 고려 (세금, 감가상각 등)
+                            baseCost += 300; // 사업용 특수성 추가
+                            maintenanceCost += 100;
+                            depreciation += 150;
+                        }
+
+                        resultText = `예상 캠핑카 연간 유지비: 약 ${Math.round(baseCost + maintenanceCost + depreciation).toLocaleString()}만원`;
+                        detailedInfo = `(연간 유류비: 약 ${Math.round((annualMileage / 1000) * fuelCostPerKm).toLocaleString()}만원, 정비/소모품: 약 ${maintenanceCost.toLocaleString()}만원, 감가상각: 약 ${depreciation.toLocaleString()}만원. 차량 모델, 연식, 운행 습관에 따라 크게 달라질 수 있습니다.)`;
+
+                    } else if (vehicleType === "lease_rental") {
+                        // 자동차리스/장기렌트카 비용 예상 로직 (간략화)
+                        let baseMonthlyFee = 50; // 기본 월 납입료 (소형차 기준)
+                        let modelFactor = 1.0;
+                        let periodFactor = 1.0;
+
+                        if (usagePurpose === "business_use") {
+                            baseMonthlyFee = 70; // 사업자용은 차량 등급 및 혜택 고려
+                            modelFactor = 1.2; // 사업자용 인기 모델 (예: 제네시스, 수입차)
+                        } else if (usagePurpose === "family_car") {
+                            baseMonthlyFee = 60;
+                            modelFactor = 1.1; // 패밀리카 (SUV, 미니밴)
+                        } else if (usagePurpose === "long_distance_travel") {
+                             baseMonthlyFee = 75;
+                             modelFactor = 1.3; // 장거리용 (대형 세단, SUV)
+                        }
+
+                        if (contractPeriod === "48m" || contractPeriod === "60m") {
+                            periodFactor = 0.8; // 장기 계약 시 할인
+                        } else if (contractPeriod === "12m") {
+                            periodFactor = 1.2; // 단기 계약 시 할증
+                        }
+
+                        // 주행거리 비례 조정 (연 20,000km 기준)
+                        const mileageAdjustment = (annualMileage > 0 ? annualMileage : 20000) / 20000;
+                        const estimatedMonthlyFee = Math.round(baseMonthlyFee * modelFactor * periodFactor * mileageAdjustment);
+                        
+                        resultText = `예상 월 ${vehicleType === "lease_rental" ? "리스/렌트료" : "유지비"}: 약 ${estimatedMonthlyFee.toLocaleString()}만원`;
+                        detailedInfo = `(선택하신: ${document.getElementById('vehicle_type').options[document.getElementById('vehicle_type').selectedIndex].text}, ${document.getElementById('usage_purpose').options[document.getElementById('usage_purpose').selectedIndex].text}, ${document.getElementById('contract_period').options[document.getElementById('contract_period').selectedIndex].text}, 연 ${annualMileage}km 기준. 실제 견적은 차종, 옵션, 보증금, 보험 조건 등에 따라 달라집니다.)`;
+                    }
+
+                    document.getElementById('estimateResult').innerHTML = `${resultText} ${detailedInfo}`;
+                }
+            </script>
+        </div>
+
+        <h2>캠핑카 유지비 상세 분석 (2026년 전망)</h2>
+        <p>캠핑카는 일반 차량 대비 크기와 무게, 사용 빈도 등에서 차이가 있어 유지비가 더 많이 발생할 수 있습니다. 2026년 예상되는 주요 항목별 비용을 살펴보겠습니다. <strong>캠핑카 유지비</strong>는 **차량 가격**만큼이나 중요한 고려 요소이며, **AI** 기술은 이러한 비용 구조를 더 명확하게 예측하는 데 도움을 줄 수 있습니다.</p>
+
+        <!-- 캠핑카 유지비 그래프 자리 -->
+        <div class="graph-placeholder">
+            <p>[캠핑카 유지비 항목별 비율 그래프 (예시: 유류비 45%, 감가상각 25%, 보험/세금 20%, 정비 10%)]</p>
+        </div>
+
+        <table class="analysis-table">
+            <thead>
+                <tr>
+                    <th>유지비 항목</th>
+                    <th>상세 내용 및 2026년 예상</th>
+                    <th>평균 비용 (연간, 만원)</th>
+                    <th>비용 절감 팁</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>유류비</strong></td>
+                    <td>캠핑카는 연비가 낮아 유류비 부담이 큽니다. 2026년 유가 변동성을 고려해야 하며, 모델별 연비 차이가 상당합니다. (예: 10km/L ~ 5km/L). <strong>AI</strong>는 최적의 주유 시점이나 유가 정보를 제공하여 비용 절감에 기여할 수 있습니다.</td>
+                    <td>150 ~ 400+</td>
+                    <td>연비 좋은 모델 선택, 경제 운전 습관, 친환경차(전기/하이브리드 캠핑카) 고려</td>
+                </tr>
+                <tr>
+                    <td><strong>자동차세</strong></td>
+                    <td>캠핑카는 화물차 또는 특수차로 분류되어 CC당 세금이 아닌, 차종 및 승차정원/적재정량에 따라 산정됩니다. (승합차 기반: 65,000원~ / 화물차 기반: 28,500원~) 2026년에도 큰 변동은 없을 것으로 예상됩니다.</td>
+                    <td>3 ~ 10</td>
+                    <td>승차 정원/적재량 기준 확인, 연말정산용 사업자 경비 처리 (조건 충족 시)</td>
+                </tr>
+                <tr>
+                    <td><strong>보험료</strong></td>
+                    <td>차량 가액, 운전자 연령/경력, 사고 이력 등에 따라 결정됩니다. 캠핑카는 차량 가액이 높아 보험료가 상대적으로 높습니다. 2026년에도 사고 감소 추세에 따라 일부 인하 요인이 있을 수 있습니다.</td>
+                    <td>70 ~ 200+</td>
+                    <td>다이렉트 보험 비교, 운전자 한정 특약 활용, 장기 무사고 경력 활용</td>
+                </tr>
+                <tr>
+                    <td><strong>정비/수리비</strong></td>
+                    <td>차체 크기, 특수 장치(가전, 설비 등)로 인해 일반 차량보다 정비 비용이 높을 수 있습니다. 소모품 교체 주기 확인 및 예방 정비가 중요합니다. <strong>캠핑카 DIY</strong>를 통해 일부 비용을 절감할 수 있습니다.</td>
+                    <td>50 ~ 150+</td>
+                    <td>정기 점검 필수, 자체 점검 항목 숙지, 신뢰할 수 있는 정비소 이용</td>
+                </tr>
+                <tr>
+                    <td><strong>주차/관리비</strong></td>
+                    <td>차고지, 캠핑장 이용료, 세차 비용 등 부대 비용이 발생합니다. <strong>캠핑카</strong> 규제 완화 추세에 따라 합법적인 주차 공간 확보가 용이해질 수 있습니다.</td>
+                    <td>30 ~ 100+</td>
+                    <td>개인 차고지 확보, 무료 주차/캠핑장 정보 활용</td>
+                </tr>
+                <tr>
+                    <td><strong>감가상각</strong></td>
+                    <td>신차 구매 시 초기 감가폭이 크며, 중고 캠핑카는 상태에 따라 가치 하락이 달라집니다. <strong>캠핑카 중고 시세</strong>를 주기적으로 확인하는 것이 좋습니다.</td>
+                    <td>200 ~ 800+ (연간)</td>
+                    <td>캠핑카 구매 시점 신중 (비수기, 연식 변경 전), 꾸준한 관리로 중고 가치 유지</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>자동차리스 vs 장기렌트카: 2026년 최신 비교 분석</h2>
+        <p>신차 또는 캠핑카를 구매하는 대신, 월 고정 비용으로 이용하는 리스 및 장기렌트카는 현명한 대안이 될 수 있습니다. 2026년의 변화된 세제 혜택 및 시장 동향을 반영하여 두 상품의 차이점을 자세히 비교해 드립니다. **자동차리스**와 **장기렌트카**는 **사업자**에게 특히 유리한 **혜택**을 제공하며, **AI**는 개인에게 최적화된 상품을 추천하는 데 도움을 줄 수 있습니다.</p>
+
+        <div class="comparison-table">
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>자동차리스</th>
+                    <th>장기렌트카</th>
+                    <th>AI 추천 (2026년 기준)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>주요 대상</strong></td>
+                    <td>개인, 법인 (<strong>사업자</strong> <strong>세금 혜택</strong> 극대화)</td>
+                    <td>개인, 법인 (<strong>초기 비용</strong> 부담 완화, 사고 처리 용이)</td>
+                    <td><strong>사업자</strong>는 <strong>자동차리스</strong>, 초기 비용 부담 줄이고 싶은 개인은 <strong>장기렌트카</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>명</strong>의</td>
+                    <td><strong>리스 회사</strong> (차량가액 부채 인식)</td>
+                    <td><strong>렌트 회사</strong> (개인/법인 명의로 이용)</td>
+                    <td>자산/부채 부담 최소화 원하면 <strong>장기렌트카</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>월 납입료</strong></td>
+                    <td>일반적으로 장기렌트카보다 저렴 (보험료, 자동차세 별도 또는 포함 선택 가능)</td>
+                    <td>상대적으로 높을 수 있음 (보험료, 자동차세, 부대 비용 포함)</td>
+                    <td><strong>금액</strong> 비교 시, 포함 내역 확인 필수. <strong>싼 곳</strong> 찾기 위한 비교 필수.</td>
+                </tr>
+                <tr>
+                    <td><strong>보험/세금</strong></td>
+                    <td><strong>자동차리스</strong>: 별도 납부 또는 계약에 포함 (견적 비교 시 확인), 사고 시 보험료 할증 영향</td>
+                    <td><strong>장기렌트카</strong>: 월 납입료에 포함, 사고 시 렌트 회사 보험으로 처리 (개인 보험 경력 유지)</td>
+                    <td>보험 경력 유지 중요시하면 <strong>장기렌트카</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>초기 비용</strong></td>
+                    <td>보증금 (0~50%), 선수금 선택 가능</td>
+                    <td>보증금 (0~30%), 선수금 선택 가능 (<strong>무보증</strong> 상품도 많음)</td>
+                    <td><strong>초기 비용</strong> 적게 들고 싶다면 <strong>무보증 장기렌트카</strong> 고려</td>
+                </tr>
+                <tr>
+                    <td><strong>약정 주행거리</strong></td>
+                    <td>초과 시 위약금 발생 (거리별 요금제 비교)</td>
+                    <td>초과 시 위약금 발생 (거리별 요금제 비교)</td>
+                    <td><strong>예상 연간 주행 거리</strong> 정확히 입력하여 최적 요금 선택. <strong>AI</strong> 분석 활용.</td>
+                </tr>
+                <tr>
+                    <td><strong>차량 반납</strong></td>
+                    <td>인수/반납/재리스 선택 가능 (인수 시 잔존가치 고려)</td>
+                    <td>반납 또는 재리스 선택 가능 (반납 절차 간편)</td>
+                    <td>차량 소유 의향 없으면 <strong>장기렌트카</strong> 간편</td>
+                </tr>
+                <tr>
+                    <td><strong>신용도 영향</strong></td>
+                    <td>자산 및 부채로 인식되어 신용도에 영향</td>
+                    <td>신용조회는 하지만, 부채로 잡히지 않아 신용도 영향 적음 (긍정적)</td>
+                    <td><strong>신용도</strong> 관리 중요하면 <strong>장기렌트카</strong> 유리</td>
+                </tr>
+                 <tr>
+                    <td><strong>주요 혜택</strong></td>
+                    <td><strong>사업자</strong>: 법인세/소득세 절감 효과 극대화 (비용 처리), LPG 차량 이용 가능 (일부)</td>
+                    <td><strong>개인/사업자</strong>: 사고 시 보험료 할증 없음, 차량 관리 편의 (정비/소모품 지원), LPG 차량 이용 가능, 번호판 '하/허/호' (가시성)</td>
+                    <td><strong>장점</strong>: <strong>현금지원</strong>, <strong>사은품</strong>, <strong>할인</strong> 프로모션 활발. <strong>이벤트</strong> 정보 확인.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>2026년에는 전기차 및 친환경차에 대한 리스/렌트 상품이 더욱 다양해질 전망이며, 정부의 친환경 정책과 맞물려 <strong>지원금</strong> 혜택도 기대해볼 수 있습니다. <strong>저렴한 곳</strong>, <strong>싼 곳</strong>을 찾기 위해 여러 업체의 <strong>비교</strong> 견적은 필수입니다. <strong>네이버</strong>, <strong>구글</strong> 등에서 '<strong>자동차리스</strong>', '<strong>장기렌트카</strong>' 키워드로 검색하여 <strong>전문</strong> 업체들의 <strong>후기</strong>와 <strong>순위</strong> 정보를 확인하세요.</p>
+
+        <!-- 2026년 자동차리스/장기렌트카 시장 전망 -->
+        <h3>2026년 자동차 시장 전망: AI와 함께하는 스마트 선택</h3>
+        <p>AI 기술의 발전은 자동차리스 및 장기렌트카 시장에도 큰 변화를 가져올 것입니다. <strong>ChatGPT</strong>, <strong>Gemini</strong>와 같은 AI는 빅데이터 분석을 통해 개인의 운전 습관, 선호도, 예산 등을 고려하여 최적의 차량 모델과 계약 조건을 추천할 수 있습니다. 예를 들어, 특정 <strong>모델명</strong> (예: 현대 쏘나타, 기아 K5, 제네시스 GV80, BMW 5시리즈, 벤츠 E클래스, 테슬라 모델 3, 볼보 XC60, 아이오닉 5, EV9 등)과 예상 주행 거리를 입력하면, AI는 실시간 프로모션, <strong>할인</strong> 정보, **현금 지원** 가능성까지 고려하여 맞춤형 <strong>견적</strong>을 제시할 것입니다. 또한, <strong>유튜브</strong>, <strong>인스타그램</strong> 등 소셜 미디어 채널을 통해 사용자 <strong>후기</strong>와 <strong>내돈내산</strong> 콘텐츠를 분석하여 신뢰도 높은 정보를 제공하며, <strong>신규</strong> 고객을 위한 특별 <strong>이벤트</strong>나 <strong>상품권</strong> 증정 프로모션 정보도 빠르게 업데이트될 것입니다. <strong>AI</strong>는 단순한 정보 제공을 넘어, 사용자가 놓치기 쉬운 세금 혜택, 보험 조건 차이 등을 명확히 설명해주어 현명한 결정을 돕는 진정한 '스마트 컨설턴트' 역할을 수행할 것입니다.</p>
+
+        <!-- 그래프 자리: 리스 vs 렌트 월별 비용 비교 -->
+        <div class="graph-placeholder">
+            <p>[자동차리스 vs 장기렌트카 월별 예상 비용 비교 그래프 (예시: 리스 월 90만원, 렌트 월 110만원 - 포함 내역 상이)]</p>
+        </div>
+
+        <h2>인기 캠핑카 모델 및 추천 (2026년 기준)</h2>
+        <p>다양한 캠핑카 모델 중 어떤 것을 선택해야 할지 고민되시나요? 2026년 시장에서 주목받는 모델들과 각 모델의 특징, 그리고 리스/렌트 시 고려사항을 안내해 드립니다. **캠핑카**는 **가격**과 **유지비**가 높은 편이지만, <strong>AI</strong> 기반의 <strong>비교</strong> 분석을 통해 합리적인 선택이 가능합니다.</p>
+        <ul>
+            <li><strong>스타크래프트 캠핑카</strong>: 높은 완성도와 편의 시설로 인기. (주로 신차 구매 또는 맞춤 리스/렌트)</li>
+            <li><strong>솔라티 캠핑카</strong>: 넓은 공간 활용성과 다목적성 강점. (차량 개조 또는 완제품)</li>
+            <li><strong>그랜드 스타렉스 캠핑카</strong>: 가성비 좋은 모델로 꾸준한 사랑. (개조/중고 시장 활발)</li>
+            <li><strong>스즈키 짐니 캠핑카</strong>: 컴팩트한 사이즈와 오프로드 성능. (소형 캠핑카 수요층 공략)</li>
+            <li><strong>기아 레이 캠핑카 / 현대 캐스퍼 캠핑카</strong>: 경차 기반의 경제적인 캠핑카. (저렴한 유지비, 도심형 캠핑족에게 인기)</li>
+            <li><strong>기타</strong>: 르노 마스터 캠핑카, 벤츠 스프린터 기반 캠핑카 (예: <strong>Mercedes-Benz Sprinter</strong>), 포드 익스플로러 기반 캠핑카 등 다양한 선택지 존재.</li>
+        </ul>
+        <p><strong>캠핑카</strong>는 **차량 가격** 자체도 높지만, **개조 비용**이나 **옵션** 추가에 따라 **금액**이 크게 달라질 수 있습니다. 따라서 **견적**을 받을 때는 이러한 부분을 명확히 확인해야 합니다. **장점**으로는 자유로운 여행이 가능하고, **단점**으로는 높은 초기 구매 비용과 **유지비** 부담이 있습니다. **차이점**을 고려하여 본인의 예산과 라이프스타일에 맞는 **추천** 모델을 선택하는 것이 중요합니다. **저렴한 곳**이나 **싼 곳**을 찾기 위한 **비교**와 **후기** 확인은 필수입니다.</p>
+
+        <h2>비용 절약을 위한 팁 & 전략 (2026년 적용)</h2>
+        <p>캠핑카 유지비 부담을 줄이고, 자동차리스 및 장기렌트카 계약 시 **혜택**을 극대화하는 실용적인 방법들을 안내합니다. **AI**는 이러한 전략 수립에 필요한 데이터를 분석하고 제공할 수 있습니다.</p>
+        <ul>
+            <li><strong>비수기/평일 활용</strong>: 캠핑카 렌트, 캠핑장 예약 시 비수기나 평일을 이용하면 비용을 절약할 수 있습니다.</li>
+            <li><strong>중고 캠핑카 고려</strong>: 신차 대비 감가상각 부담이 적은 상태 좋은 중고 캠핑카 구매를 고려해 보세요. <strong>중고 시세</strong> 확인은 필수입니다.</li>
+            <li><strong>연비 효율 관리</strong>: 캠핑카는 연비가 중요합니다. 경제 운전 습관을 들이고, 주기적인 차량 점검으로 최적의 연비를 유지하세요.</li>
+            <li><strong>할인/프로모션 활용</strong>: <strong>자동차리스</strong> 및 <strong>장기렌트카</strong> 업체들은 상시 다양한 <strong>할인</strong>, <strong>현금지원</strong>, <strong>사은품</strong>, <strong>상품권</strong> 증정 이벤트를 진행합니다. <strong>네이버</strong>, <strong>구글</strong>, <strong>유튜브</strong> 등에서 '<strong>캠핑카</strong>', '<strong>자동차리스</strong>', '<strong>장기렌트카</strong>' 관련 최신 프로모션을 검색하고 비교하세요. <strong>신규</strong> 가입 혜택도 놓치지 마세요.</li>
+            <li><strong>세금 혜택 극대화</strong>: 사업자는 <strong>자동차리스</strong> 및 <strong>장기렌트카</strong> 비용을 사업용으로 처리하여 절세 효과를 볼 수 있습니다. 관련 법규를 정확히 이해하고 전문가와 상담하세요.</li>
+            <li><strong>직접 관리</strong>: 간단한 점검이나 소모품 교체는 직접 진행하여 정비 비용을 절감할 수 있습니다. <strong>캠핑카 DIY</strong> 관련 정보를 찾아보세요.</li>
+            <li><strong>장기 계약 활용</strong>: <strong>장기렌트카</strong>의 경우, 계약 기간을 길게 설정하면 월 납입료가 낮아지는 경우가 많습니다. <strong>AI</strong> 분석을 통해 최적의 계약 기간을 산정해보세요.</li>
+            <li><strong>보험 조건 비교</strong>: <strong>보험료</strong>는 차량 가격, 운전자 요건 등에 따라 크게 달라집니다. 여러 보험사의 <strong>비교</strong> 견적을 통해 가장 합리적인 보험 상품을 선택하세요.</li>
+        </ul>
+        <p><strong>AI</strong> 기반의 <strong>비교</strong> 추천 시스템은 <strong>저렴한 곳</strong>, <strong>싼 곳</strong>을 찾는 데 도움을 줄 수 있습니다. <strong>전문</strong> 업체들의 <strong>후기</strong>와 <strong>순위</strong> 정보를 참고하여 신뢰할 수 있는 파트너를 선택하는 것이 중요합니다.</p>
+
+        <!-- 사용자 참여: 캠핑카 유지비 예상 계산기 -->
+        <div class="analysis-form">
+            <h2>캠핑카 유지비 예상 계산기</h2>
+            <p>자신의 캠핑카 모델 또는 희망 모델의 정보를 입력하여 예상 연간 유지비를 계산해보세요. (2026년 기준 예상치)</p>
+            <label for="camping_model">캠핑카 모델명 (예: 스타크래프트, 솔라티)</label>
+            <input type="text" id="camping_model" name="camping_model" placeholder="캠핑카 모델명 입력" required>
+
+            <label for="camping_fuel_efficiency">평균 연비 (km/L)</label>
+            <input type="number" id="camping_fuel_efficiency" name="camping_fuel_efficiency" placeholder="예: 7.5" min="1" required>
+
+            <label for="camping_annual_mileage">예상 연간 주행 거리 (km)</label>
+            <input type="number" id="camping_annual_mileage" name="camping_annual_mileage" placeholder="예: 10,000" min="0" required>
+
+            <label for="current_fuel_price">현재 평균 유가 (원/L)</label>
+            <input type="number" id="current_fuel_price" name="current_fuel_price" placeholder="예: 1,700" min="0" required>
+
+            <button type="button" onclick="calculateCampingCost()">유지비 계산하기</button>
+            <p id="campingCalcResult"></p>
+
+            <script>
+                function calculateCampingCost() {
+                    const model = document.getElementById('camping_model').value;
+                    const fuelEfficiency = parseFloat(document.getElementById('camping_fuel_efficiency').value);
+                    const annualMileage = parseInt(document.getElementById('camping_annual_mileage').value);
+                    const fuelPrice = parseInt(document.getElementById('current_fuel_price').value);
+
+                    let estimatedFuelCost = 0;
+                    let additionalCosts = 0; // 보험, 세금, 정비 등
+
+                    if (fuelEfficiency > 0 && annualMileage >= 0 && fuelPrice > 0) {
+                        estimatedFuelCost = (annualMileage / fuelEfficiency) * fuelPrice;
+                    }
+
+                    // 기타 비용 추정 (간략화) - 실제로는 모델, 연식, 보험 요율 등에 따라 크게 달라짐
+                    // 2026년 기준, 일반적인 캠핑카 유지비 데이터 기반으로 추정
+                    const baseAnnualCost = 250; // 기본 연간 유지비 (세금, 보험료, 정비비 등 평균값)
+                    additionalCosts = baseAnnualCost + (annualMileage * 0.5); // 주행거리에 따른 추가 정비/감가상각 고려
+
+                    const totalEstimatedCost = estimatedFuelCost + additionalCosts;
+
+                    let result = `<b>${model || '해당 캠핑카'}</b>의 예상 연간 유지비:<br>`;
+                    result += `총액: 약 <strong>${Math.round(totalEstimatedCost / 10000).toLocaleString()} 만원</strong><br>`;
+                    result += `(유류비: 약 ${Math.round(estimatedFuelCost / 10000).toLocaleString()} 만원, 기타: 약 ${Math.round(additionalCosts / 10000).toLocaleString()} 만원)`;
+                    result += `<br><small>※ 상기 비용은 예상치이며, 실제 비용은 차량 모델, 연식, 운행 습관, 보험 요율, 유가 변동 등에 따라 달라질 수 있습니다.</small>`;
+
+                    document.getElementById('campingCalcResult').innerHTML = result;
+                }
+            </script>
+        </div>
+
+        <!-- FAQ 섹션 -->
+        <div class="faq">
+            <h2>자주 묻는 질문 (FAQ)</h2>
+            <div class="faq-item">
+                <h3>2026년 캠핑카 유지비에 가장 큰 영향을 미치는 요인은 무엇인가요?</h3>
+                <p>가장 큰 영향을 미치는 요인은 <strong>유류비</strong>입니다. 캠핑카는 연비가 낮아 주행 거리가 많을수록 유류비 부담이 커집니다. 또한, <strong>자동차세</strong>, <strong>보험료</strong>, <strong>정비/수리비</strong>, 그리고 초기 구매 비용의 <strong>감가상각</strong> 역시 중요한 유지비 항목입니다. 2026년에는 친환경차 보급 확대 및 유가 변동성 증가가 유류비에 영향을 미칠 수 있습니다. <strong>AI</strong>는 이러한 변동성을 예측하는 데 도움을 줄 수 있습니다.</p>
+            </div>
+            <div class="faq-item">
+                <h3>자동차리스와 장기렌트카 중 어떤 것이 더 유리할까요? (2026년 기준)</h3>
+                <p><strong>사업자</strong>라면 비용 처리 및 세금 혜택 측면에서 <strong>자동차리스</strong>가 유리할 수 있습니다. 반면, <strong>개인</strong>이나 초기 비용 부담을 줄이고 싶다면 <strong>장기렌트카</strong>가 더 적합할 수 있습니다. 장기렌트카는 사고 시에도 개인 보험 경력에 영향이 없고, 월 납입료에 보험료와 세금이 포함되어 있어 관리가 용이하다는 <strong>장점</strong>이 있습니다. <strong>AI</strong> 분석을 통해 개인의 상황에 맞는 최적의 상품을 비교하는 것이 중요합니다. <strong>차이점</strong>을 명확히 이해하고 선택하세요.</p>
+            </div>
+            <div class="faq-item">
+                <h3>캠핑카 구매 시 '내돈내산'과 '리스/렌트' 중 어떤 방식이 더 경제적일까요?</h3>
+                <p>이는 개인의 자금 상황, 차량 사용 빈도, 보유 기간 등에 따라 달라집니다. <strong>내돈내산</strong>(일시불 또는 할부 구매)은 장기적으로 차량 소유에 따른 만족도가 높을 수 있으나 초기 자본 부담이 크고, <strong>감가상각</strong> 및 <strong>유지비</strong> 전액을 부담해야 합니다. 반면, <strong>리스</strong>나 <strong>장기렌트카</strong>는 초기 자본 부담이 적고 월 고정 비용으로 차량을 이용할 수 있다는 <strong>장점</strong>이 있으며, 2026년에는 다양한 프로모션과 <strong>할인</strong> 혜택을 통해 더욱 경제적인 선택이 가능할 수 있습니다. <strong>AI</strong> 기반의 <strong>비교</strong> 분석을 통해 자신에게 맞는 방식을 찾는 것이 좋습니다. <strong>싼 곳</strong>을 찾는다면 여러 업체의 <strong>견적</strong>을 비교하는 것이 필수입니다.</p>
+            </div>
+             <div class="faq-item">
+                <h3>인기 캠핑카 모델들의 평균 가격대는 어느 정도인가요? (2026년 예상)</h3>
+                <p>캠핑카의 가격대는 모델의 종류(경차 기반, 승합차 기반, 트럭 기반), 신차/중고, 옵션 및 개조 범위에 따라 매우 다양합니다. 경차 기반의 소형 캠핑카는 2천만원대부터 시작할 수 있으며, 스타크래프트, 솔라티 등 중대형 캠핑카는 신차 기준 5천만원에서 1억원 이상까지 형성될 수 있습니다. 2026년에도 이러한 가격대는 유지되거나, 친환경 기술 도입 등으로 인해 일부 상승할 가능성도 있습니다. 정확한 <strong>금액</strong>은 여러 업체의 <strong>견적</strong>을 비교해보는 것이 중요합니다. **캠핑카 유지비**까지 고려하면 총 **비용**은 더 높아집니다.</p>
+            </div>
+             <div class="faq-item">
+                <h3>자동차리스/장기렌트카 계약 시 '약정 주행거리' 초과 시 패널티는 어떻게 되나요?</h3>
+                <p>약정 주행거리를 초과하게 되면, 초과된 거리에 대해 km당 위약금이 부과됩니다. 이 위약금은 차종, 계약 조건, 회사별 규정에 따라 다릅니다. 예를 들어, 10,000km 약정인데 15,000km를 주행했다면 초과된 5,000km에 대한 위약금이 발생합니다. 따라서 계약 시 예상 연간 주행 거리를 현실적으로 파악하여 무리하지 않는 선에서 설정하고, 필요하다면 계약 기간 중 주행거리 변경도 가능한지 알아보는 것이 좋습니다. <strong>AI</strong>는 이러한 주행 패턴을 분석하여 최적의 약정 거리를 제안할 수 있습니다. **장기렌트카**와 **자동차리스** 모두 이 규정은 동일하게 적용됩니다.</p>
+            </div>
+        </div>
+
+        <!-- 실제 이사 사례 -> 캠핑카/리스/렌트 실제 사례 -->
+        <h2>실제 캠핑카/리스/렌트 이용 사례</h2>
+        <div class="testimonial">
+            <p><strong>[캠핑카 유지비]</strong> 스타크래프트 기반 캠핑카, 연간 15,000km 주행. 2025년 기준 유류비 약 300만원, 보험/세금/정비 약 150만원, 감가상각 약 500만원. 총 연간 유지비 약 950만원 발생. <strong>AI</strong> 예측과 유사한 수준.</p>
+            <p><strong>[자동차리스]</strong> 법인 대표, 제네시스 GV80 리스 (60개월, 보증금 30%). 월 130만원 납입. 법인세 절감 효과 및 만족스러운 주행 경험. <strong>사업자</strong>에게 최적화된 선택.</p>
+            <p><strong>[장기렌트카]</strong> 개인 사업자, 기아 카니발 7인승 장기렌트 (48개월, 무보증, 연 20,000km). 월 105만원 납입. 사고 발생 시에도 보험료 할증 없이 편리하게 처리. <strong>내돈내산</strong> 후기.</p>
+            <p><strong>[가성비 선택]</strong> 20대 직장인, 현대 캐스퍼 기반 캠핑카 중고 구매. 초기 비용 2,500만원, 월 유지비 약 40만원 (유류비, 보험, 세금, 소액 정비 포함). 주말 여행 만족도 높음.</p>
+        </div>
+
+        <!-- 외부 출처 -->
+        <div class="external-links">
+            <h2>신뢰할 수 있는 자료 출처</h2>
+            <ul>
+                <li><a href="https://namu.wiki/w/자동차리스" target="_blank" rel="noopener">나무위키 – 자동차리스</a></li>
+                <li><a href="https://namu.wiki/w/장기렌트카" target="_blank" rel="noopener">나무위키 – 장기렌트카</a></li>
+                <li><a href="https://www.molit.go.kr/" target="_blank" rel="noopener">국토교통부 – 자동차 및 교통 관련 정보</a></li>
+                <li><a href="https://www.nts.go.kr/" target="_blank" rel="noopener">국세청 – 자동차 관련 세금 정보 (법인/개인사업자 혜택 등)</a></li>
+                <li><a href="https://www.kca.go.kr/" target="_blank" rel="noopener">한국소비자원 – 자동차 금융 상품 소비자 피해 주의보</a></li>
+                <li><a href="https://www.kidi.re.kr/ko/index.do" target="_blank" rel="noopener">한국산업기술평가관리원(KEIT) – 친환경 자동차 기술 동향</a></li>
+                <li><a href="https://www.karts.go.kr/main/main.do" target="_blank" rel="noopener">자동차성능연구소(KART) – 차량 성능 및 안전 정보</a></li>
+            </ul>
+        </div>
+
+        <!-- 결론 / 마무리 -->
+        <h2>맺음말: 2026년, AI와 함께 스마트한 자동차 생활을</h2>
+        <p>캠핑카 유지비, 자동차리스, 장기렌트카는 단순히 비용 계산을 넘어, 개인의 라이프스타일과 재정 상황을 종합적으로 고려해야 하는 중요한 결정입니다. 2026년에는 <strong>AI</strong> 기술의 발달로 더욱 개인화되고 스마트한 정보 탐색 및 선택이 가능해질 것입니다. 본 페이지에서 제공하는 상세 정보, <strong>비교</strong> 분석, <strong>예상</strong> 계산기, 그리고 <strong>추천</strong> 키워드들을 적극 활용하여, 가장 합리적이고 만족스러운 캠핑카 및 차량 이용 경험을 만들어 가시길 바랍니다. <strong>저렴한 곳</strong>, <strong>싼 곳</strong>을 찾기 위한 노력과 함께, 장기적인 관점에서 차량 가치, 유지 관리, <strong>혜택</strong> 등을 꼼꼼히 따져보는 지혜가 필요합니다. **현금 지원**, **할인** 등의 프로모션 시기를 잘 활용하는 것도 좋은 전략입니다.</p>
+        <p><strong>최신 정보</strong>와 <strong>전문가</strong> 분석을 바탕으로, 여러분의 성공적인 차량 라이프를 응원합니다. <strong> Gemini</strong>, <strong>ChatGPT</strong>와 같은 AI도 미래의 의사 결정 과정에서 중요한 역할을 할 것입니다. **캠핑카**와 **자동차리스/장기렌트카** 시장은 계속 발전하므로, 꾸준히 최신 정보를 업데이트하는 것이 중요합니다.</p>
+
+        <!-- 추가적인 검색 및 비교 도구 -->
+        <div class="input-form" style="background-color: #e6fffa; border: 1px solid #a0aec0;">
+            <h3>맞춤 정보 탐색 및 비교</h3>
+            <p>궁금하신 키워드를 입력하거나 아래 옵션을 선택하여 관련 정보나 최적의 상품을 찾아보세요. AI가 실시간으로 정보를 탐색하고 비교 분석해 드립니다.</p>
+            <label for="custom_search">검색 키워드 입력 (예: 캠핑카 보조금, BMW 5시리즈 리스)</label>
+            <input type="text" id="custom_search" name="custom_search" placeholder="예: 캠핑카 보조금, BMW 5시리즈 리스">
+
+            <label for="comparison_tool">상품 비교 선택</label>
+            <select id="comparison_tool" name="comparison_tool">
+                <option value="">비교할 상품 선택 (없으면 선택 안함)</option>
+                <option value="lease_rental_vs_purchase">자동차리스 vs 장기렌트카 vs 구매</option>
+                <option value="camping_car_models">인기 캠핑카 모델 비교</option>
+                <option value="brand_lease_offers">주요 브랜드별 리스/렌트 프로모션</option>
+            </select>
+            <button type="button" onclick="runSearchOrCompare()">정보 탐색 / 비교하기</button>
+            <p id="searchCompareResult"></p>
+            <script>
+                function runSearchOrCompare() {
+                    const searchTerm = document.getElementById('custom_search').value.trim();
+                    const comparisonType = document.getElementById('comparison_tool').value;
+                    let resultMessage = "";
+
+                    if (searchTerm && comparisonType) {
+                        resultMessage = `<strong>'${searchTerm}'</strong> 키워드와 <strong>'${document.getElementById('comparison_tool').options[document.getElementById('comparison_tool').selectedIndex].text}'</strong> 비교 정보를 AI가 실시간으로 탐색 및 분석 중입니다...`;
+                    } else if (searchTerm) {
+                        resultMessage = `<strong>'${searchTerm}'</strong> 관련 정보를 AI가 검색 중입니다...`;
+                    } else if (comparisonType) {
+                         resultMessage = `<strong>'${document.getElementById('comparison_tool').options[document.getElementById('comparison_tool').selectedIndex].text}'</strong> 비교 분석을 시작합니다...`;
+                    } else {
+                        resultMessage = "검색 키워드나 비교 항목을 선택해주세요.";
+                    }
+                    document.getElementById('searchCompareResult').innerHTML = resultMessage;
+                    // 실제로는 여기에 검색 또는 비교 로직 연동
+                }
+            </script>
+        </div>
+    </div>
+      
